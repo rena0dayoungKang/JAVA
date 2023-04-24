@@ -7,9 +7,12 @@ public class CalculateClass {
 
 	public static InputClass inputClass = null;
 	public static Calendar cal = null;
+	public static PrintClass printClass = null;
 	public static int currentYear = Calendar.YEAR;
 	public static int currentMonth = Calendar.MONTH + 1;
 	public static int currentDay = Calendar.DAY_OF_MONTH;
+	public static String currentT;
+	public static int currentDate;
 
 	public static int internationalAge;
 	public static int ageGroup;
@@ -18,13 +21,14 @@ public class CalculateClass {
 	public static int totalPrice;
 	public static int calcPrice;
 
-	public int[] save;
-	public int[][] orderList;
+	public static int[] saveList;
+	public static int[] orderList;
 
 	public CalculateClass() {
-		save = new int[5];
-		orderList = new int[100][5];
+		saveList = new int[5];
+		orderList = new int[100];
 		inputClass = new InputClass();
+		printClass = new PrintClass();
 	}
 
 	/**
@@ -56,26 +60,19 @@ public class CalculateClass {
 		return totalPrice;
 	}
 
-	/**
-	 * @return the orderList
-	 */
-	public int[][] getOrderList() {
-		return orderList;
-	}
-
-	/**
-	 * @return the save
-	 */
-	public int[] getSave() {
-		return save;
-	}
-
 	public static void currentTime() {
 		Calendar cal = Calendar.getInstance();
 		LocalDate currentDate = LocalDate.now();
 		currentYear = cal.get(Calendar.YEAR);
 		currentMonth = cal.get(Calendar.MONTH + 1);
 		currentDay = cal.get(Calendar.DAY_OF_MONTH);
+	}
+
+	public void currentTimes() {
+		String cy = String.valueOf(currentYear);
+		String cm = String.valueOf(currentMonth);
+		String cd = String.valueOf(currentDay);
+		String currentT = "currentYear" + "currentMonth" + "currentDay";
 	}
 
 	public static void calcAge(long customerIDNumber) {
@@ -89,19 +86,15 @@ public class CalculateClass {
 		long zeroNine = ConstValueClass.ZERO_NINE.longValue();
 
 		customerIDYear = (int) (customerIDNumber / zeroEleven);
-		// System.out.println(customerIDYear);
 		customerIDNumber -= customerIDYear * zeroEleven;
 
 		customerIDMonth = (int) (customerIDNumber / zeroNine);
-		// System.out.println(customerIDMonth);
 		customerIDNumber -= customerIDMonth * zeroNine;
 
 		customerIDDay = (int) (customerIDNumber / ConstValueClass.ZERO_SEVEN);
-		// System.out.println(customerIDDay);
 		customerIDNumber -= customerIDDay * ConstValueClass.ZERO_SEVEN;
 
 		customerIDFlag = (int) (customerIDNumber / ConstValueClass.ZERO_SIX);
-		// System.out.println(customerIDFlag);
 
 		switch (customerIDFlag) {
 		case (ConstValueClass.MALE_OLD):
@@ -113,9 +106,6 @@ public class CalculateClass {
 		}
 
 		age = currentYear - customerIDYear + 1;
-		// System.out.println(currentYear);
-		// System.out.println(customerIDYear);
-		// System.out.println(age);
 		if (customerIDMonth > currentMonth) {
 			internationalAge = age - ConstValueClass.BEFORE_BIRTH;
 		} else if ((customerIDMonth == currentMonth) && (customerIDDay < currentDay)) {
@@ -128,8 +118,7 @@ public class CalculateClass {
 	}
 
 	public static void calcAgeGroup() {
-		// 인자가 없어야한다....
-		// System.out.println(internationalAge);
+		// 인자가 없어야한다.
 		if (internationalAge < ConstValueClass.MIN_CHILD) {
 			ageGroup = ConstValueClass.BABY;
 			if (inputClass.getTicketSelect() == 1) {
@@ -196,7 +185,6 @@ public class CalculateClass {
 		default:
 			break;
 		}
-		// System.out.println(calcPrice);
 	}
 
 	public static void calcPriceResult() {
@@ -204,14 +192,66 @@ public class CalculateClass {
 		System.out.printf("총 요금은 : %d 입니다", totalPrice);
 	}
 
-//	public void saveOrderList(int ticketSelect, int internationalAge, int orderCount, int priceResult,
-//			int discountSelect, int[] save, int[][] orderList) {
-//		orderList[save[0]][0] = ticketSelect;
-//		orderList[save[0]][1] = internationalAge;
-//		orderList[save[0]][2] = orderCount;
-//		orderList[save[0]][3] = priceResult;
-//		orderList[save[0]][4] = discountSelect;
-//		save[0]++;
+	public static void saveList() {
+
+//		saveList[0] = 
+		// 주야간권
+		if (saveList[0] == 1) {
+			printClass.dayMessage();
+		} else if (saveList[0] == 2) {
+			printClass.nightMessage();
+		}
+
+		saveList[1] = ageGroup; // 소인~경로
+		if (saveList[1] == ConstValueClass.NEW_BORN) {
+			printClass.newbornMessage();
+		} else if (saveList[1] == ConstValueClass.BABY) {
+			printClass.babyMessage();
+		} else if (saveList[1] == ConstValueClass.CHILD) {
+			printClass.childMessage();
+		} else if (saveList[1] == ConstValueClass.TEEN) {
+			printClass.teenMessage();
+		} else if (saveList[1] == ConstValueClass.ADULT) {
+			printClass.adultMessage();
+		} else if (saveList[1] == ConstValueClass.OLD) {
+			printClass.oldMessage();
+		}
+
+		saveList[2] = inputClass.getOrderCount(); // 몇 장 구매
+		if (saveList[2] > 0) {
+			System.out.printf(" X %d장\t", inputClass.getOrderCount());
+		} else {
+			printClass.errorMessage();
+		}
+
+		saveList[3] = totalPrice; // 총 가격
+		if (saveList[3] > 0) {
+			System.out.printf("총 금액 : %d 원\t", totalPrice);
+		} else {
+			printClass.errorMessage();
+		}
+
+		saveList[4] = inputClass.getDiscountSelect(); // 할인의 종류
+		if (saveList[4] == 1) {
+			printClass.orderListIndex1();
+		} else if (saveList[4] == 2) {
+			printClass.orderListIndex2();
+		} else if (saveList[4] == 3) {
+			printClass.orderListIndex3();
+		} else if (saveList[4] == 4) {
+			printClass.orderListIndex4();
+		} else if (saveList[4] == 5) {
+			printClass.orderListIndex5();
+		}
+
+		// System.out.println(Arrays.toString(saveList));
+
+	}
+
+//	public static void orderList() {
+//		
+//		orderList[]
+//		
 //	}
 
 }

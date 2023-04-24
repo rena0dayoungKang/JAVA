@@ -32,59 +32,61 @@ public class PrintClass {
 	public void orderPrintMessage() {
 		System.out.println("티켓 발권을 종료합니다. 감사합니다.");
 		System.out.println();
-		System.out.println("===============================에버랜드=================================\n");
+		System.out.println("================================에버랜드===================================\n");
+
 	}
 
 	public void dayMessage() {
-		System.out.println("주간권  ");
+
+		System.out.print("주간권  ");
 	}
 
 	public void nightMessage() {
-		System.out.println("야간권  ");
+		System.out.print("야간권  ");
 	}
 
 	public void newbornMessage() {
-		System.out.println("신생아  ");
+		System.out.print("신생아  ");
 	}
 
 	public void babyMessage() {
-		System.out.println("베이비  ");
+		System.out.print("베이비  ");
 	}
 
 	public void childMessage() {
-		System.out.println("어린이  ");
+		System.out.print("어린이  ");
 	}
 
 	public void teenMessage() {
-		System.out.println("청소년  ");
+		System.out.print("청소년  ");
 	}
 
 	public void adultMessage() {
-		System.out.println("성인  ");
+		System.out.print("성인  ");
 	}
 
 	public void oldMessage() {
-		System.out.println("노인  ");
+		System.out.print("경로  ");
 	}
 
 	public void orderListIndex1() {
-		System.out.println("*우대적용 없음 \n");
+		System.out.print("*우대적용 없음 ");
 	}
 
 	public void orderListIndex2() {
-		System.out.println("*장애인 우대적용 \n");
+		System.out.print("*장애인 우대적용 ");
 	}
 
 	public void orderListIndex3() {
-		System.out.println("*국가유공자 우대적용 \n");
+		System.out.print("*국가유공자 우대적용 ");
 	}
 
 	public void orderListIndex4() {
-		System.out.println("*다자녀 우대적용 \n");
+		System.out.print("*다자녀 우대적용 ");
 	}
 
 	public void orderListIndex5() {
-		System.out.println("*임신부 우대적용 \n");
+		System.out.print("*임신부 우대적용 ");
 	}
 
 	public void totalPriceMessage(int priceResult) {
@@ -99,6 +101,14 @@ public class PrintClass {
 		System.out.println("계속 발권 하시겠습니까? \n");
 		System.out.println("1. 티켓 발권 \n");
 		System.out.println("2. 종료 \n");
+	}
+
+	public void orderListPrint() {
+
+		System.out.println(
+				"==================================================================================================\n");
+		System.out.printf("%");
+
 	}
 
 }

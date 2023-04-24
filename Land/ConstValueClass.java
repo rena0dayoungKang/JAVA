@@ -1,6 +1,7 @@
 package Land;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class ConstValueClass {
 
@@ -56,5 +57,7 @@ public class ConstValueClass {
 
 	public static final int MAX_COUNT = 10;
 	public static final int MIN_COUNT = 1;
+
+	public static LocalDate currentDate = LocalDate.now();
 
 }

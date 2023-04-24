@@ -9,6 +9,9 @@ public class LandMain {
 		InputClass inputClass = new InputClass();
 		CalculateClass calClass = new CalculateClass();
 		OutputClass outputClass = new OutputClass();
+		PrintClass printClass = new PrintClass();
+		OrderList orderClass = new OrderList();
+		ListSaving listSaving = new ListSaving();
 
 		int isExit;
 		long customerIDNumer = 0;
@@ -18,7 +21,7 @@ public class LandMain {
 		int discountSelect = 0;
 		int calcPrice = 0;
 		int orderCount = 0;
-		int totalPrice;
+		int totalPrice = 0;
 
 		do {
 
@@ -33,12 +36,16 @@ public class LandMain {
 			calClass.calcDiscount();
 			calClass.calcPriceResult();
 
-//			System.out.printf("%d원 입니다\n", calClass.getTotalPrice());
-
 			System.out.println("\n계속 진행 (1. 새로운 주문   2.프로그램 종료) :  ");
 			Scanner sc = new Scanner(System.in);
 			isExit = sc.nextInt();
+
 		} while (isExit == 1);
+
 		System.out.println("프로그램 종료");
+		listSaving.OrderList(orderClass.getCurrentT(), ticketSelect, ageGroup, orderCount, totalPrice, discountSelect);
+		printClass.orderPrintMessage();
+		calClass.saveList();
+
 	}
 }
