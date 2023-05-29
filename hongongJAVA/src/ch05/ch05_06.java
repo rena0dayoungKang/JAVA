@@ -7,7 +7,7 @@ public class ch05_06 {
 
         boolean run = true;
         int studentNum = 0;
-        int[] scores  = new int[studentNum];
+        int[] scores  = null;
         Scanner scanner = new Scanner(System.in);
 
         while(run) {
@@ -21,10 +21,13 @@ public class ch05_06 {
             if(selectNo == 1) {
                 System.out.println("학생의 수를 입력 하세요 : ");
                 studentNum = scanner.nextInt();
+                /***************************/
+                scores = new int[studentNum];
+                /***************************/
 
             } else if (selectNo == 2) {
-                System.out.println("학생들의 점수를 각각 입력하세요 : ");
-                for (int i = 0; i < studentNum; i++) {
+                for (int i = 0; i < scores.length; i++) {
+                    System.out.println("학생들의 점수를 각각 입력하세요 : ");
                     scores[i] = scanner.nextInt();
                 }
             } else if (selectNo == 3) {
@@ -32,22 +35,21 @@ public class ch05_06 {
                     System.out.println("scores[" + i + "] > " + scores[i]);
                 }
             } else if (selectNo == 4) {
+                int maxScore = 0; int sumScore = 0; double avgScore = 0.0;
                 for (int i = 0; i < scores.length; i++) {
-                    int maxScore = 0; int sumScore = 0; double avgScore = 0;
-                    if (maxScore < scores[i]) {
-                        maxScore = scores[i];
-                    }
+                    /***************************/
+                    maxScore = (maxScore < scores[i]) ? scores[i] : maxScore;
                     sumScore += scores[i];
-                    avgScore = (double) sumScore / scores.length;
-                    System.out.println("최고 점수 : " + maxScore);
-                    System.out.println("평균 점수 : " + avgScore);
+                    /***************************/
                 }
+                avgScore = (double) sumScore / studentNum;
+                System.out.println("최고 점수 : " + maxScore);
+                System.out.println("평균 점수 : " + avgScore);
             } else if (selectNo == 5) {
-                System.out.println("프로그램 종료.");
-                System.out.close();
+                run = false;
             }
         }
-
+        System.out.println("프로그램 종료");
 
     }
 }
